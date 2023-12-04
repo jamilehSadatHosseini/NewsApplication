@@ -17,7 +17,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import com.example.newsapplication.presentation.Dimens.IndicatorWidth
 import com.example.newsapplication.presentation.Dimens.MediumPadding2
 import com.example.newsapplication.presentation.common.NewsButton
@@ -25,11 +24,10 @@ import com.example.newsapplication.presentation.common.NewsTextButton
 import com.example.newsapplication.presentation.onbording.component.OnBoardingPage
 import com.example.newsapplication.presentation.onbording.component.PagerIndicator
 import kotlinx.coroutines.launch
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnBordingScreen() {
+fun OnBoardingScreen(event: (OnBoardingEvent)->Unit) {
     Column(modifier = Modifier.fillMaxSize()) {
         val pageState = rememberPagerState(initialPage = 0) {
             pages.size
@@ -83,8 +81,8 @@ fun OnBordingScreen() {
                     text = buttonState.value[1],
                     onClickCallBack = {
                         scope.launch {
-                            if (pageState.currentPage == 3){
-                                //Navigate to the main screen and save a value in datastore preferences
+                            if (pageState.currentPage == 2){
+                                event(OnBoardingEvent.SaveAppEntryEvent)
                             }else{
                                 pageState.animateScrollToPage(
                                     page = pageState.currentPage + 1
