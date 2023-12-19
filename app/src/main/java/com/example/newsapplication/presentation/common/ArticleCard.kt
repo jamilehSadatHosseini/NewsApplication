@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -31,7 +32,7 @@ import com.example.newsapplication.domain.model.Source
 import com.example.newsapplication.presentation.Dimens.ArticleCardSize
 import com.example.newsapplication.presentation.Dimens.ExtraSmallPadding
 import com.example.newsapplication.presentation.Dimens.ExtraSmallPadding2
-import com.example.newsapplication.presentation.Dimens.SmalIconSize
+import com.example.newsapplication.presentation.Dimens.SmallIconSize
 import com.example.newsapplication.ui.theme.NewsApplicationTheme
 
 @Composable
@@ -42,15 +43,16 @@ fun ArticleCard(
 
 ) {
     val context = LocalContext.current
-    Row(modifier = modifier.clickable {
-        onClick
-    }) {
+    Row(   modifier = modifier.clickable { onClick.invoke() },
+
+        ) {
         AsyncImage(
             modifier = modifier
                 .size(ArticleCardSize)
                 .clip(MaterialTheme.shapes.medium),
             model = ImageRequest.Builder(context).data(article.urlToImage).build(),
-            contentDescription = null
+            contentDescription = null,
+            contentScale = ContentScale.Crop
         )
         Column(
             verticalArrangement = Arrangement.SpaceAround, modifier = modifier
@@ -76,7 +78,7 @@ fun ArticleCard(
                 Spacer(modifier = Modifier.width(ExtraSmallPadding2))
                 Icon(painter = painterResource(id = R.drawable.ic_time),
                     contentDescription = null,
-                    modifier=Modifier.size(SmalIconSize))
+                    modifier=Modifier.size(SmallIconSize))
                 Spacer(modifier = Modifier.width(ExtraSmallPadding2))
                 Text(text = article.publishedAt,
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),

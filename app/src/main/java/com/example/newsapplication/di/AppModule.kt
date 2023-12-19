@@ -10,7 +10,8 @@ import com.example.newsapplication.domain.useCases.app_entry.AppEntryUseCases
 import com.example.newsapplication.domain.useCases.app_entry.ReadAppEntry
 import com.example.newsapplication.domain.useCases.app_entry.SaveAppEntry
 import com.example.newsapplication.domain.useCases.news.GetNewsUsecase
-import com.example.newsapplication.domain.useCases.news.NewsUsecases
+import com.example.newsapplication.domain.useCases.news.NewsUseCases
+import com.example.newsapplication.domain.useCases.news.SearchNewsUsecase
 import com.example.newsapplication.util.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -47,11 +48,12 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun ProvidesNewsRepository(requestApi: RequestApi):NewRepository=NewsRepositoryImp(requestApi = requestApi)
+    fun ProvidNewsRepository(requestApi: RequestApi):NewRepository=
+        NewsRepositoryImp(requestApi = requestApi)
 
     @Provides
     @Singleton
-    fun ProvidesNewsUsecases(newsRepository: NewRepository):NewsUsecases=
-        NewsUsecases(GetNewsUsecase(newsRepository))
+    fun ProvidNewsUseCases(newsRepository: NewRepository):NewsUseCases=
+        NewsUseCases(GetNewsUsecase(newsRepository), SearchNewsUsecase(newsRepository))
 
 }

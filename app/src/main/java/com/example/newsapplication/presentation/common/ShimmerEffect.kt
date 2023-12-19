@@ -43,8 +43,9 @@ fun Modifier.ShimmerEffect() = composed {
 
 
 @Composable
-fun ArticleCardShimmerEffect() {
-    Row {
+fun ArticleCardShimmerEffect(modifier: Modifier) {
+    Row(   modifier = modifier
+    ) {
         Box(
             modifier = Modifier
                 .size(Dimens.ArticleCardSize)
@@ -86,6 +87,6 @@ fun ArticleCardShimmerEffect() {
 @Composable
 fun ArticleCardShimmerEffectPreview() {
     NewsApplicationTheme {
-        ArticleCardShimmerEffect()
+        ArticleCardShimmerEffect(modifier=Modifier )
     }
 }

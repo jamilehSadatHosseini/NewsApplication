@@ -19,4 +19,21 @@ class NewsRepositoryImp(val requestApi: RequestApi):NewRepository {
       ).flow
 
     }
-}
+
+    override fun searchNews(
+        searchPhrase: String,
+        sources: List<String>
+    ): Flow<PagingData<Article>> {
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            pagingSourceFactory = {
+                SearchNewsPagingSource(
+                    requestApi = requestApi,
+                    searchQuery=searchPhrase,
+                    source = sources.joinToString(separator = ",")
+                )
+            }
+        ).flow
+
+    }
+    }
