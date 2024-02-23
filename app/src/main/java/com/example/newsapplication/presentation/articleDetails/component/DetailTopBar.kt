@@ -49,10 +49,10 @@ fun DetailTopBar(
             IconButton(onClick = onShareClicked) {
                 Icon(imageVector = Icons.Default.Share,contentDescription = null)
             }
+
             IconButton(onClick = onBrowserClicked) {
                 Icon(painter = painterResource(id = R.drawable.ic_network),contentDescription = null)
             }
-
         }
     )
 }

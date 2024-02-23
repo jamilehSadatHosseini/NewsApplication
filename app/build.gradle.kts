@@ -1,9 +1,12 @@
+
 plugins {
     id("com.android.application")
     kotlin("android")
+    id ("kotlin-parcelize")
+   // kotlin("parcelize")
     kotlin("kapt")
     id("com.google.dagger.hilt.android")
-//    kotlin("parcelize")
+
 }
 
 android {
@@ -44,9 +47,9 @@ android {
         kotlinCompilerExtensionVersion = "1.4.7"
     }
 
-    packagingOptions {
-        resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
-    }
+//    fun Packaging.() {
+//        resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+//    }
 }
 
 
@@ -78,7 +81,7 @@ dependencies {
     // Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.48.1")
     kapt("com.google.dagger:hilt-compiler:2.48.1")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -91,7 +94,7 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
     // Compose Foundation
-    implementation("androidx.compose.foundation:foundation:1.4.3")
+    implementation("androidx.compose.foundation:foundation:1.6.2")
 
     // Accompanist
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.33.2-alpha")
@@ -99,10 +102,10 @@ dependencies {
     // Paging 3
     val paging_version = "3.1.1"
     implementation("androidx.paging:paging-runtime:$paging_version")
-    implementation("androidx.paging:paging-compose:3.2.0-rc01")
+    implementation("androidx.paging:paging-compose:3.3.0-alpha03")
 
     // Room
-    val room_version = "2.5.2"
+    val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:2.5.2")

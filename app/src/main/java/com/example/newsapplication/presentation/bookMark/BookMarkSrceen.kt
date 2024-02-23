@@ -13,14 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import com.example.newsapplication.R
+import com.example.newsapplication.domain.model.Article
 import com.example.newsapplication.presentation.Dimens.MediumPadding1
 import com.example.newsapplication.presentation.common.ArticleList
-import com.example.newsapplication.presentation.navgraph.Route
 
 
 @Composable
 fun BookMarkScreen(
-    bookMarkState: BookMarkState, navigateUp: (String)->Unit
+    bookMarkState: BookMarkState, navigateToDetail: (Article)->Unit
 ) {
     Column(
         modifier = Modifier
@@ -39,7 +39,7 @@ fun BookMarkScreen(
         )
         ArticleList(
             articles = bookMarkState.articles,
-            onClick = { navigateUp(Route.DetailsScreen.route) }
+            onClick = navigateToDetail
         )
     }
 }

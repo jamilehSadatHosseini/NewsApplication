@@ -20,35 +20,39 @@ fun ArticleList(
     articles: List<Article>,
     onClick: (Article) -> Unit
 ) {
+    if (articles.isEmpty()) {
+        EmptyScreen()
+    }
+    LazyColumn(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(MediumPadding1),
+        contentPadding = PaddingValues(all = ExtraSmallPadding2)
+    ) {
+        items(count = articles.size) {
+            val article = articles[it]
+            ArticleCard(article = article, onClick = { onClick(article) })
 
-      LazyColumn(modifier = modifier.fillMaxSize(),
-          verticalArrangement = Arrangement.spacedBy(MediumPadding1),
-          contentPadding = PaddingValues(all= ExtraSmallPadding2)
-      ){
-          items(count = articles.size){
-              val article = articles[it]
-                  ArticleCard(article = article,onClick={onClick(article)})
-
-          }
+        }
     }
 
 }
+
 @Composable
 fun ArticleList(
-modifier: Modifier = Modifier,
-articles: LazyPagingItems<Article>,
-onClick: (Article) -> Unit
+    modifier: Modifier = Modifier,
+    articles: LazyPagingItems<Article>,
+    onClick: (Article) -> Unit
 ) {
-    val handlePagingResult= handlePagingResult(articles = articles)
-    if(handlePagingResult)
-    {
-        LazyColumn(modifier = modifier.fillMaxSize(),
+    val handlePagingResult = handlePagingResult(articles = articles)
+    if (handlePagingResult) {
+        LazyColumn(
+            modifier = modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(MediumPadding1),
-            contentPadding = PaddingValues(all= ExtraSmallPadding2)
-        ){
-            items(count = articles.itemCount){
+            contentPadding = PaddingValues(all = ExtraSmallPadding2)
+        ) {
+            items(count = articles.itemCount) {
                 articles[it]?.let {
-                    ArticleCard(article = it,onClick={onClick(it)})
+                    ArticleCard(article = it, onClick = { onClick(it) })
                 }
             }
         }
@@ -65,17 +69,23 @@ fun handlePagingResult(articles: LazyPagingItems<Article>): Boolean {
         loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
         else -> null
     }
-    return when{
-        loadState.refresh is LoadState.Loading->{
+    return when {
+        loadState.refresh is LoadState.Loading -> {
             ShimmerEffect()
             false
         }
-        error !=null ->
-        {
+
+        error != null -> {
             EmptyScreen(error)
             false
         }
-        else ->{
+
+        articles.itemCount==0 ->{
+            EmptyScreen()
+            false
+        }
+
+        else -> {
             true
         }
     }

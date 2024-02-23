@@ -3,6 +3,7 @@ package com.example.newsapplication.presentation.articleDetails
 import android.content.Intent
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -55,37 +56,42 @@ fun DetailScreen(
                     context.startActivity(it)
                 }
             }
-        }, onSaveClicked = { event(DetailEvent.SaveArticleEvent) })
-    }
-    LazyColumn(
-        modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(
-            start = MediumPadding1, end = MediumPadding1, top = MediumPadding1
-        )
-    ) {
+        }, onSaveClicked = {
+            Log.e("click", "click")
+            event(DetailEvent.SaveArticleEvent(article))
+        })
 
-        item {
-            AsyncImage(
-                model = ImageRequest.Builder(context = context).data(article.urlToImage).build(),
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(ArticleImageHeigh)
-                    .clip(MaterialTheme.shapes.medium),
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(
+                start = MediumPadding1, end = MediumPadding1, top = MediumPadding1
+            )
+        ) {
 
+            item {
+                AsyncImage(
+                    model = ImageRequest.Builder(context = context).data(article.urlToImage)
+                        .build(),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(ArticleImageHeigh)
+                        .clip(MaterialTheme.shapes.medium),
+
+                    )
+                Spacer(modifier = Modifier.height(MediumPadding1))
+                Text(
+                    text = article.title,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = colorResource(id = R.color.text_title)
                 )
-            Spacer(modifier = Modifier.height(MediumPadding1))
-            Text(
-                text = article.title,
-                style = MaterialTheme.typography.bodySmall,
-                color = colorResource(id = R.color.text_title)
-            )
-            Spacer(modifier = Modifier.height(MediumPadding1))
-            Text(
-                text = article.title,
-                style = MaterialTheme.typography.bodyMedium,
-                color = colorResource(id = R.color.body)
-            )
+                Spacer(modifier = Modifier.height(MediumPadding1))
+                Text(
+                    text = article.title,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = colorResource(id = R.color.body)
+                )
+            }
         }
     }
 }

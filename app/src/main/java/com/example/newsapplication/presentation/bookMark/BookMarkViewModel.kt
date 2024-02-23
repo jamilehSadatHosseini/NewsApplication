@@ -20,7 +20,7 @@ init {
     getArticles()
 }
     private fun getArticles(){
-        newsUseCases.selectNews().onEach {
+        newsUseCases.selectArticles().onEach {
             _state.value = _state.value.copy(it)
         }.launchIn(viewModelScope
 

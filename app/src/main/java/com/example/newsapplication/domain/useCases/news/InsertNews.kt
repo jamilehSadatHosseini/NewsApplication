@@ -1,10 +1,10 @@
 package com.example.newsapplication.domain.useCases.news
 
-import com.example.newsapplication.data.local.NewsDao
 import com.example.newsapplication.domain.model.Article
+import com.example.newsapplication.domain.repository.NewRepository
 
-class InsertNews(private val newsDao: NewsDao) {
+class InsertNews(private val repository: NewRepository) {
     suspend operator fun invoke(article: Article) {
-         newsDao.insertArticle(article)
+        repository.upsertArticle(article)
     }
 }
